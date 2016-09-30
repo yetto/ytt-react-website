@@ -1,0 +1,55 @@
+// Frameworks
+@import "compass";
+@import "compass/_reset";
+// Local
+@import "_variables";
+@import "_mixins";
+@import "_modules";
+@import "_base";
+@import "_layout";
+
+#example {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+}
+
+
+// @import "_reset";
+// @import "_animate.sass";
+
+/* SNIPPETS
+
+// Simple anim
+@include transition-duration(0.5s);
+@include transition-timing-function(ease);
+
+// MEDIA QUERIES
+@include respond-to(handhelds) { width: 100% ; }
+@include respond-to(medium-screens) { width: 125px; }
+@include respond-to(wide-screens) { float: none; }
+
+// BORDER RAD
+.simple   { @include border-radius(4px, 4px); }
+.compound { @include border-radius(2px 5px, 3px 6px); }
+
+// ANIMATION : http://thecssguru.freeiz.com/animate/
+.one
+	+animate(fadeIn, 3s, 2s)
+.two
+	+animate(bounceInDown, 2s, 2s)
+.three
+	+animate(rotateInUpRight)
+
+// Mixin example
+@mixin lbBtn($with,$fontSize) {
+	font-size: $fontSize;
+	width: $with;
+	max-width: 300px;
+	input {
+		width: ($with + 100);
+	}
+}
+
+*/

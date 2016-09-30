@@ -1,0 +1,232 @@
+/*
+	· cover
+	· palletes
+	· cards
+*/
+
+
+// ############## COVER
+#app {
+	@include fit-viewport;
+	overflow: hidden;
+}
+
+#anim-cont {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	overflow: hidden;
+	canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		opacity: 0.7;
+	}
+}
+
+
+.coverLogo {
+	background-size: 100%;
+	width: 225px;
+	height: 61px;
+	z-index: 1;
+	@include dead-center(50%,absolute);
+	@include transition-duration(0.5s);
+	@include transition-timing-function(ease);
+	@include respond-to(medium-screens) {
+		background-size: 100%;
+		width: 371px;
+		height: 100px;
+	}
+	@include respond-to(wide-screens) {
+		background-size: 100%;
+		width: 575px;
+		height: 155px;
+	}
+}
+
+.coverBg {
+	// background: url(../imgs/bg.jpg) no-repeat center;
+	// background-size: 200% 100%;
+	width: 100%;
+	height: 100%;
+	opacity: 0.3;
+	@include dead-center(50%,absolute);
+	@include transition-duration(0.5s);
+	@include transition-timing-function(ease);
+	// @include respond-to(medium-screens) {
+	// 	background-size: 100%;
+	// 	width: 1386px;
+	// 	height: 960px;
+	// }
+	// @include respond-to(wide-screens) { float: none;
+	// 	background-size: 100%;
+	// 	width: 1559px;
+	// 	height: 1080px;
+	// }
+}
+
+// ############## END COVER
+// -------------------------------------
+// ############## INFO
+
+
+#info {
+	@include fit-viewport;
+	width: 100%;
+	height: 100%;
+	bottom: -100%;
+	overflow: visible;
+	z-index: 2;
+
+	@include transition-duration(0.2s);
+	@include transition-timing-function(ease-in);
+	@include transform(translatez(0));
+
+
+	.palette {
+		width: 100%;
+		height: 20%;
+		display: block;
+		text-align: center;
+		vertical-align: center;
+		cursor: pointer;
+		@include gpu-acel;
+		position: relative;
+		// @include transform(translateY(-95%));
+	}
+
+	td {
+		@include transition-duration(1s);
+		@include transition-timing-function(ease);
+		@include transform(translatez(0));
+	}
+
+	#what { background-color: $appColor1; }
+	#we { background-color: $appColor2; }
+	#how { background-color: $appColor3; }
+	#who { background-color: $appColor4; }
+	#talk { background-color: $appColor5; }
+
+	#what:hover { height: 22%; }
+	#we:hover { height: 22%; }
+	#how:hover { height: 22%; }
+	#who:hover { height: 22%; }
+	#talk:hover { height: 22%; }
+
+	h1 { padding: 1em 0 0.1em 0; }
+	p { padding: 0.3em 0 1em 0; line-height: 1.4em; }
+	br { display: none; }
+
+	@include respond-to(medium-screens) {
+
+		@include fit-viewport;
+		.palette {
+			width: 20%;
+			height: 100%;
+			display: table-cell;
+			vertical-align: bottom;
+		}
+
+		#what:hover { width: 30%; }
+		#we:hover { width: 30%; }
+		#how:hover { width: 30%; }
+		#who:hover { width: 30%; }
+		#talk:hover { width: 30%; }
+
+		h1 { margin-bottom: 0.3em; }
+		p { margin-bottom: 1em; line-height: 1.4em; }
+		br { display: block; }
+
+	} // end @include respond-to(medium-screens)
+
+} // END INFO
+
+// ############## END INFO
+// -------------------------------------
+// ############## CARDS
+
+#cards {
+	@include fit-viewport;
+	width: 100%;
+	height: 100%;
+	display: table;
+	position: absolute;
+	.mBtn {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 3em;
+		height: 3em;
+		cursor: pointer;
+		border-radius: 50%;
+		border: 3px solid #c9c9c9;
+		margin: 1.4em 0 0 1.3em;
+	}
+	.mBtn::after {
+		content: "|||";
+		display: block;
+		display: block;
+		clear: both;
+		color: #FFF;
+		text-align: center;
+		vertical-align: middle;
+		width: 44%;
+		height: 100%;
+		font-size: 1.4em;
+		@include transform(rotate(90deg));
+	}
+	.cContent {
+		width: 100%;
+		height: 100%;
+	}
+	.xBtn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 3em;
+		height: 3em;
+		cursor: pointer;
+		border-radius: 50%;
+		border: 3px solid #c9c9c9;
+		margin: 1.4em 1.3em 0 0;
+	}
+	.xBtn::after {
+		content: "X";
+		display: block;
+		clear: both;
+		color: #FFF;
+		text-align: center;
+		vertical-align: middle;
+		width: 100%;
+		height: 100%;
+		margin-top: 28%;
+		font-size: 1.4em;
+	}
+}
+.card {
+	opacity: 0;
+	background-color: $appGrey;
+	@include box-shadow(darken($appGrey,15%) 0 0 60px);
+	@include cards-fit-viewport;
+	@include transition-timing-function(ease-in);
+	@include respond-to(medium-screens) {
+		top: 1em;
+		bottom: 1em;
+		right: 1em;
+		left: 1em;
+	} // end @include respond-to(medium-screens)
+	@include respond-to(wide-screens) {
+		top: 2em;
+		bottom: 2em;
+		right: 2em;
+		left: 2em;
+	} // end @include respond-to(wide-screens)
+}
+
+// ############## END CARDS
