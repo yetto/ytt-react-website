@@ -107,17 +107,17 @@
 		@include transform(translatez(0));
 	}
 
-	#what { background-color: $appColor1; }
-	#we { background-color: $appColor2; }
-	#how { background-color: $appColor3; }
-	#who { background-color: $appColor4; }
-	#talk { background-color: $appColor5; }
+	#palette0 { background-color: $appColor1; }
+	#palette1 { background-color: $appColor2; }
+	#palette2 { background-color: $appColor3; }
+	#palette3 { background-color: $appColor4; }
+	#palette4 { background-color: $appColor5; }
 
-	#what:hover { height: 22%; }
-	#we:hover { height: 22%; }
-	#how:hover { height: 22%; }
-	#who:hover { height: 22%; }
-	#talk:hover { height: 22%; }
+	#palette0:hover { height: 22%; }
+	#palette1:hover { height: 22%; }
+	#palette2:hover { height: 22%; }
+	#palette3:hover { height: 22%; }
+	#palette4:hover { height: 22%; }
 
 	h1 { padding: 1em 0 0.1em 0; }
 	p { padding: 0.3em 0 1em 0; line-height: 1.4em; }
@@ -133,11 +133,11 @@
 			vertical-align: bottom;
 		}
 
-		#what:hover { width: 30%; }
-		#we:hover { width: 30%; }
-		#how:hover { width: 30%; }
-		#who:hover { width: 30%; }
-		#talk:hover { width: 30%; }
+		#palette0:hover { width: 30%; }
+		#palette1:hover { width: 30%; }
+		#palette2:hover { width: 30%; }
+		#palette3:hover { width: 30%; }
+		#palette4:hover { width: 30%; }
 
 		h1 { margin-bottom: 0.3em; }
 		p { margin-bottom: 1em; line-height: 1.4em; }

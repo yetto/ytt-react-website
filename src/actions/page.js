@@ -45,39 +45,16 @@ class Page {
 			posY = this.posY
 		}
 
-		if (this.psy < 99) {
+		if (this.posY < 99) {
 			console.log("99");
-			this.infoSection.style.top = this.ph + "px";
 		}
 
-		if (this.psy > 100 && this.psy < 1000) {
-
-			this.infoSection.style.top = this.psy + "px";
-
-			if (this.scrollUnlcoked) {
-				this.scrollUnlcoked = false;
-				oAnim.waveHook(this.what);
-				setTimeout(function() {
-					oAnim.waveHook(this.we);
-				}, 100);
-				setTimeout(function() {
-					oAnim.waveHook(this.how);
-				}, 200);
-				setTimeout(function() {
-					oAnim.waveHook(this.who);
-				}, 300);
-				setTimeout(function() {
-					oAnim.waveHook(this.talk);
-				}, 400);
-				setTimeout(function() {
-					oPage.clearSectionClasses(oPage.sections);
-				}, 1000);
-			}
+		if (this.posY > 100 && this.posY < 1000) {
+				console.log("this.psy > 100 && this.psy < 1000");
 		}
 
-		if (this.psy > 1001) {
+		if (this.posY > 1001) {
 			console.log("this.psy > 1001");
-			this.infoSection.style.top = "-" + this.psy + "px";
 		}
 
 	} // END trackScroll
