@@ -1,69 +1,71 @@
 import React from 'react';
 // Cover anim dependencies
-import easePack from '../lib/easePack.min.js';
-import rAF from '../lib/rAF.js';
-import tweenLite from '../lib/tweenLite.min.js';
 import coverAnim from '../lib/coverAnim.js';
+import { connect } from "react-redux"
+
+import * as pageActions from '../actions/pageActions';
+import { bindActionCreators } from 'redux';
 
 /*
-    # ES6 Components
-    http://www.newmediacampaigns.com/blog/refactoring-react-components-to-es6-classes
-    # Componetn specs
-    https://facebook.github.io/react/docs/component-specs.html
+* ## Play with hue values
+* http://stackoverflow.com/questions/17433015/change-the-hue-of-a-rgb-color-in-javascript
+*
 */
 
+const mapStateToProps = (store) => {
+    return {
+        mousePosX : store.page.mousePos.x,
+        mousePosY : store.page.mousePos.y,
+        posY : store.page.posY
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(pageActions, dispatch)
+    }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Cover extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {text: "Hi, I'm Yenuan and this my portfolio"};
+        this.state = {text: "Hi, I'm Yenuan and this is my portfolio"};
     }
-
-    componentWillMount(){
-
-    }
-
-    /*
-        Sounds good to alter state for animation pourposes
-
-        Invoked when a component is receiving new props. This method is not called for the initial render.
-
-        Use this as an opportunity to react to a prop transition before render() is called by updating the state using this.setState(). The old props can be accessed via this.props. Calling this.setState() within this function will not trigger an additional render.
-    */
-
-
-    componentWillReceiveProps(){}
-
-    componentWillUpdate(){}
-
-
-    componentDidUpdate(){}
 
     render() {
-        return (<div>
-                <div class="coverLogo">
-                    <h1>{this.state.text}</h1>
-                </div>
-                <div id="anim-cont">
-                    <canvas id="can"></canvas>
-                </div>
-                    <div class="coverBg">
+        const x = this.props.mousePosX * 0.05
+        const y = this.props.mousePosY * 0.05
+        const transparency = (posY) => {
+            if (posY < window.innerHeight/8) return 0.3
+            return 0
+        }
+        const bgStyles = {
+            transform: `scale(1.1) translateX(${x}px) translateY(${y}px)`,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            opacity: transparency(this.props.posY)
+        }
+        return (<div id="cover">
+                    <div class="coverHeading">
+                        <h1>{this.state.text}</h1>
+                    </div>
+                    <div id="anim-cont">
+                        <canvas id="can"></canvas>
+                    </div>
+                    <div style={bgStyles} class="coverBg">
                 </div>
             </div>);
     }
 
     componentDidMount(){
+        // Initialze cover bg Animation
         coverAnim({ canvas : 'can' , element : 'anim-cont' });
-    }
-
-    /*
-        Invoked immediately before a component is unmounted from the DOM.
-
-        Perform any necessary cleanup in this method, such as invalidating timers or cleaning up any DOM elements that were created in componentDidMount.
-    */
-    componentWillUnmount(){
-
     }
 
 }
 
 export default Cover;
+
+

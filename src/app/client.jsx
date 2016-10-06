@@ -1,85 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Cover from '../components/Cover.jsx';
-import MenuPanes from '../components/MenuPanes.jsx';
-import Palette from '../components/Palette.jsx';
-import HelloForm from '../components/HelloForm.jsx';
+
+/* Style */
 import style from '../scss/main.scss';
-// mainWrapper
-import page from '../actions/page';
 
-const palettesContent = [
-  (props) => (
-    <div>
-      <h1>Cover</h1>
-      <p>Placeholder</p>
-    </div>
-    ),
-  (props) => (
-    <div>
-      <h1>Code</h1>
-      <p>Placeholder</p>
-    </div>
-    ),
-  (props) => (
-    <div>
-      <h1>Pixels</h1>
-      <p>Placeholder</p>
-    </div>
-    ),
-  (props) => (
-    <div>
-      <h1>Contact</h1>
-      <p>Placeholder</p>
-    </div>
-    ),
-  (props) => (
-    <div>
-      <h1>Resume</h1>
-      <p>Placeholder</p>
-    </div>
+/* Componetns */
+import Layout from '../components/Layout.jsx';
+import Main from '../components/Main.jsx';
+import Blog from '../components/Blog.jsx';
+import Archive from '../components/Archive.jsx';
+
+/* libs */
+import page from '../lib/page';
+
+/* React router deps */
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import store, { history } from './store'
+
+
+let entryPoint = document.getElementById('App'),
+    router = (
+      <Provider store={store}>
+        <Router history={hashHistory}>
+          <Route path="/" component={Layout}>
+            {/* Main is our home component */}
+            <IndexRoute component={Main} />
+            <Route path="about" component={Main} />
+            <Route path="pixels" component={Blog} category={"words"}>
+              <Route path="archive" component={Archive} />
+            </Route>
+            <Route path="code" component={Blog} category={"code"}>
+              <Route path="archive" component={Archive} />
+            </Route>
+          </Route>
+
+          <Route path="/about/" component={Layout}>
+            {/* Main is our home component */}
+            <IndexRoute component={Main} />
+          </Route>
+
+        </Router>
+      </Provider>
     )
-] // END pallete
 
-const Menu = (props) => (
-  <div>
-    <MenuPanes
-      posHeight={page.posHeight}>
+ReactDOM.render(router, entryPoint, () => {
 
-      {palettesContent.map((palette, i) =>
-        <Palette
-          key={i}>
-          {palette()}
-        </Palette>
-      )}
+  console.log("Entry Point - DONE")
 
-    </MenuPanes>
-  </div>
-); // END MENU
-
-
-class Home {
-
-  constructor(){
-    this.setupCover()
-  }
-
-  setupMenu(){
-    // Menu Component
-    ReactDOM.render(<Menu/>, document.getElementById('menuPanes'), () => {
-      console.log(this.props);
-    });
-  }
-
-  setupCover(){
-    // Cover component
-    ReactDOM.render(<Cover />, document.getElementById('App'), () => {
-      console.log("Page State \n",page)
-      this.setupMenu()
-    });
-
-  }
-
-} // END home
-
-const home = new Home
+})

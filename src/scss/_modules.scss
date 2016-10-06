@@ -11,30 +11,22 @@
 	overflow: hidden;
 }
 
-#anim-cont {
+#cover {
+	overflow: hidden;
 	position: absolute;
 	top: 0;
+	bottom: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	overflow: hidden;
-	canvas {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		opacity: 0.7;
-	}
+	right: 0;
 }
 
-
-.coverLogo {
-	background-size: 100%;
+.coverHeading {
 	width: 225px;
 	height: 61px;
 	z-index: 1;
+	border-top: 5px solid;
+	padding: 2em 25% 0 0;
+	text-align: left;
 	@include dead-center(50%,absolute);
 	@include transition-duration(0.5s);
 	@include transition-timing-function(ease);
@@ -50,25 +42,17 @@
 	}
 }
 
+
 .coverBg {
-	// background: url(../imgs/bg.jpg) no-repeat center;
-	// background-size: 200% 100%;
+	background: url(/dist/imgs/bg.jpg);
+	background-position: center;
+	background-size: cover;
 	width: 100%;
 	height: 100%;
 	opacity: 0.3;
 	@include dead-center(50%,absolute);
-	@include transition-duration(0.5s);
-	@include transition-timing-function(ease);
-	// @include respond-to(medium-screens) {
-	// 	background-size: 100%;
-	// 	width: 1386px;
-	// 	height: 960px;
-	// }
-	// @include respond-to(wide-screens) { float: none;
-	// 	background-size: 100%;
-	// 	width: 1559px;
-	// 	height: 1080px;
-	// }
+	@include transition-duration(1.4s);
+	@include transition-timing-function(ease-out);
 }
 
 // ############## END COVER
@@ -122,6 +106,28 @@
 	h1 { padding: 1em 0 0.1em 0; }
 	p { padding: 0.3em 0 1em 0; line-height: 1.4em; }
 	br { display: none; }
+
+	@include respond-to(wide-screens) {
+
+		@include fit-viewport;
+		.palette {
+			width: 20%;
+			height: 100%;
+			display: table-cell;
+			vertical-align: bottom;
+		}
+
+		#palette0:hover { width: 30%; }
+		#palette1:hover { width: 30%; }
+		#palette2:hover { width: 30%; }
+		#palette3:hover { width: 30%; }
+		#palette4:hover { width: 30%; }
+
+		h1 { margin-bottom: 0.3em; }
+		p { margin-bottom: 1em; line-height: 1.4em; }
+		br { display: block; }
+
+	} // end @include respond-to(medium-screens)
 
 	@include respond-to(medium-screens) {
 

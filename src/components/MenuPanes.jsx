@@ -1,28 +1,59 @@
 import React from 'react';
+/*
+    @Connect allows you to connect your React components to your store's state, that is to pass down to them your store's state as props.
+*/
+import { connect } from "react-redux"
 
-class Cover extends React.Component {
+import * as pageActions from '../actions/pageActions';
+import { bindActionCreators } from 'redux';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: "Hi, I'm Yenuan and this my portfolio",
-            posHeight : props.posHeight
-        };
-        this.canWave = true;
-        setTimeout(()=>{this.wave()},1000)
+
+const mapStateToProps = (store) => {
+    return {
+        posY: store.page.posY
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(pageActions, dispatch)
+    }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class MenuPanes extends React.Component {
+
+    componentWillUpdate(props){
+        // On update make our elementns dance
+        this.wave()
+    }
+
+    componentWillMount(){
+        // Update all info
     }
 
     renderPalettes(){
         const clone = (child, i) => React.cloneElement(child, {
-            uid: i
+            uid: i,
+            wait: 1000
         });
-        console.log(this.props.children);
         return this.props.children.map(clone);
     }
 
     render() {
+        const { posY } = this.props
+        const posHeight = window.page.posHeight
+        const top = (posY) => {
+            if (posY > posHeight/7 && posY < posHeight*1.5)
+                return posY
+            if (posY > posHeight*1.5+1)
+                return -Math.abs(posHeight)
+            if (posY < posHeight/7)
+                return posHeight
+            return posHeight
+        }
         const menuStyles = {
-            top: this.state.posHeight
+            top: top(this.props.posY) + 'px'
         }
         return (<table id="info" style={menuStyles}>
               <tbody>
@@ -52,33 +83,12 @@ class Cover extends React.Component {
 
     // Fades menu into place
     active(px){
-        this.state.posHeight = px;
+        this.state.posY = px;
     }
 
     // Fade menu into inactive position
     innactive(px){
-        this.state.posHeight = px;
+        this.state.posY = px;
     }
 
 }
-
-export default Cover;
-
-/*
-    # ES6 Components
-    http://www.newmediacampaigns.com/blog/refactoring-react-components-to-es6-classes
-    # Componetn specs
-    https://facebook.github.io/react/docs/component-specs.html
-    ### Paths
-    https://medium.com/@lavrton/using-react-with-html5-canvas-871d07d8d753#.4p82ynwzw
-
-
-    componentWillMount(){}
-    componentWillReceiveProps(){}
-    componentWillUpdate(){}
-    componentDidUpdate(){}
-    componentDidMount(){}
-    componentWillUnmount(){}
-
-
-*/

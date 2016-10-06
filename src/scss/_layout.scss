@@ -23,17 +23,19 @@ body { // mainViewport
 	overflow: auto;
 }
 #devOverlay {
+	font-size: 1em; font-family: "Open Sans", Serif; font-weight: normal;
+	background-color: rgba(255,255,255,0.1);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: rgba(255,255,255,0.7);
+	text-shadow: 1px 1px 10px rgba(20,20,20,0.7);
+	padding: 0.6em 1.2em;
+	position: absolute;
+	left: 1.3em;
+	bottom: 1.3em;
+	z-index: 9999;
+	@include border-radius(5px);
 	@include transition-duration(0.5s);
 	@include transition-timing-function(ease);
-	background-color: white;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	z-index: 9999;
-	padding: 0.6em 1.2em;
-	color: black;
-	@include border-radius(5px);
-	font-size: 0.6em; font-family: "Open Sans", Serif; font-weight: 400;
 	div {
 		text-align: center;
 	}
@@ -47,7 +49,7 @@ body { // mainViewport
 .wave { @include animation('wave 0.5s 1'); }
 @include keyframes(wave) {
 	0% { top: 0; }
-	50% { top: 50px; }
+	50% { top: 100px; }
 	100% { top: 0; }
 }
 .card-in { z-index: 3; @include animation('card-in 0.5s 1'); }
