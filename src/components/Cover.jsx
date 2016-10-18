@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 class Cover extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {text: "Hi, I'm Yenuan and this is my portfolio"};
+        this.state = {text: "Hi, I'm Yenuan, Full Stack Developer"};
     }
 
     render() {
