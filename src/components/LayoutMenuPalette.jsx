@@ -15,12 +15,10 @@ class Palette extends React.Component {
     componentWillUpdate(props){
 
         const willWave = ()=>{
-            console.log("WILL WAVE",this.props.uid);
             this.state.waveState = "palette wave"
         }
 
         const reset = ()=>{
-            console.log("RESET",this.props.uid);
             this.state.waveState = "palette";
             this.state.canWave = true;
         }
@@ -37,8 +35,6 @@ class Palette extends React.Component {
 
     }
 
-    componentDidUpdate(props){}
-
     render() {
         return (<td class={this.state.waveState} id={this.setId()}>
                     {this.props.children}
@@ -47,21 +43,6 @@ class Palette extends React.Component {
 
     setId(){
         return "palette"+this.props.uid;
-    }
-
-
-
-
-
-
-    waveOnce(){
-        this.state.class = "palette wave"
-        console.log("palette wave",this.props.uid,this.state.class)
-    }
-
-    reset(){
-        this.state.class = "palette"
-        console.log("palette",this.props.uid,this.state.class)
     }
 
 }

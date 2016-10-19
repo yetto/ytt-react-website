@@ -32,9 +32,14 @@ class Page {
 		// expose page stats globally
 		window.page = this;
 
+		this.lastPosX=[]
+		this.lastPosY=[]
+
 	} // End constructor
 
-
+	/*
+		If not enought time has pass, stop
+	*/
 	dispatchThrottle(fn,throttleBy,args){
 		let timeOut = this.lastDispatch + throttleBy
 		if (timeOut <= Date.now()) {
@@ -44,6 +49,27 @@ class Page {
 
 	} // END dispatchThrottle
 
+	/*
+		Since we throttle our evets every X MMS to not spam
+		redux, sometimes some events will leave a gap.
+		With this function we make sure to fill those gaps
+		on demand.
+			@collection = []
+			@store = Redux Store
+			@action = fn
+			@get_value = getter fn
+	*/
+	coverBlindSpot(collection,store,action,get_value){
+		let i = 1
+		const lastChange = ()=>{
+	    store.dispatch(action(get_value()))
+		}
+		while(i<=3){
+		    clearTimeout(collection[i])
+		    collection[i] = setTimeout(lastChange.bind(this),300*i)
+		    i++
+		}
+	} // coverBlindSpot
 
 	mouseDispatcher({
 		mouseX = 0,
@@ -68,12 +94,19 @@ class Page {
 		posX = this.posX,
 		posY = this.posY
 	}){
-		// console.log("scrollDispatcher",arguments,this);
-		if (posX != this.posX)
-			store.dispatch(pageAct.xChanged(this.posX))
 
-		if (posY != this.posY)
+		// console.log("scrollDispatcher",arguments,this);
+		if (posX != this.posX) {
+			store.dispatch(pageAct.xChanged(this.posX))
+			function get_posX(){return this.scrollReference.scrollLeft}
+			this.coverBlindSpot(this.lastPosX,store,pageAct.xChanged,get_posX.bind(this))
+		}
+
+		if (posY != this.posY) {
 			store.dispatch(pageAct.yChanged(this.posY))
+			function get_posY(){return this.scrollReference.scrollTop}
+			this.coverBlindSpot(this.lastPosY,store,pageAct.yChanged,get_posY.bind(this))
+		}
 
 	} // END scrollDispatcher
 
@@ -119,7 +152,7 @@ class Page {
             mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop
         }
 
-        this.dispatchThrottle(this.mouseDispatcher.bind(this),100,{mouseX,mouseY})
+        this.dispatchThrottle(this.mouseDispatcher.bind(this),200,{mouseX,mouseY})
 
 				this.mouseX = mouseX
 				this.mouseY = mouseY
@@ -145,7 +178,7 @@ class Page {
 					posX = this.scrollReference.scrollLeft,
 					posY = this.scrollReference.scrollTop
 
-				this.dispatchThrottle(this.scrollDispatcher.bind(this),100,{posX, posY})
+				this.dispatchThrottle(this.scrollDispatcher.bind(this),500,{posX, posY})
 
 				this.posX = posX,
 				this.posY = posY
@@ -178,9 +211,9 @@ initDevOverlay() {
 				this.posWidth,
 				"px | H: ",
 				this.posHeight,
-				"px | mouseX",
+				"px | MX",
 				this.mouseX,
-				"mouseY",
+				"MYY",
 				this.mouseY
 			].join()
 
@@ -215,9 +248,9 @@ initDevOverlay() {
 				this.posWidth,
 				"px | H: ",
 				this.posHeight,
-				"px | mouseX",
+				"px | MX",
 				this.mouseX,
-				"mouseY",
+				"MY",
 				this.mouseY
 			].join()
 

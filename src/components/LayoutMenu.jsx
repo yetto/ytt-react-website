@@ -26,13 +26,6 @@ export default class MenuPanes extends React.Component {
         super(props)
     }
 
-    componentWillUpdate(props){
-    }
-
-    componentWillMount(){
-        // Update all info
-    }
-
     renderPalettes(){
         const clone = (child, i) => React.cloneElement(child, {
             uid: i,

@@ -22,11 +22,11 @@ const loggerQuiet = createLogger({
       const ignore = [
         'MOUSE_POS_CHANGED',
         'POSX_CHANGED',
-        'POSY_CHANGED',
+        //'POSY_CHANGED',
         'POSWIDTH_CHANGED',
         'POSHEIGHT_CHANGED'
       ]
-      if (ignore.indexOf(action.type) != -1) return false
+      if (ignore.indexOf(action.type) === -1) return true
     }
 })
 
