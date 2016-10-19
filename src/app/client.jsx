@@ -6,7 +6,7 @@ import style from '../scss/main.scss';
 
 /* Componetns */
 import Layout from '../components/Layout.jsx';
-import Main from '../components/Main.jsx';
+import Home from '../components/Home.jsx';
 import Blog from '../components/Blog.jsx';
 import Archive from '../components/Archive.jsx';
 
@@ -24,9 +24,9 @@ let entryPoint = document.getElementById('App'),
       <Provider store={store}>
         <Router history={hashHistory}>
           <Route path="/" component={Layout}>
-            {/* Main is our home component */}
-            <IndexRoute component={Main} />
-            <Route path="about" component={Main} />
+            {/* Home is our home component */}
+            <IndexRoute component={Home} />
+            <Route path="about" component={Home} />
             <Route path="pixels" component={Blog} category={"words"}>
               <Route path="archive" component={Archive} />
             </Route>
@@ -36,8 +36,8 @@ let entryPoint = document.getElementById('App'),
           </Route>
 
           <Route path="/about/" component={Layout}>
-            {/* Main is our home component */}
-            <IndexRoute component={Main} />
+            {/* Home is our home component */}
+            <IndexRoute component={Home} />
           </Route>
 
         </Router>

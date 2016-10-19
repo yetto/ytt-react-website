@@ -7,7 +7,6 @@ import { connect } from "react-redux"
 import * as pageActions from '../actions/pageActions';
 import { bindActionCreators } from 'redux';
 
-
 const mapStateToProps = (store) => {
     return {
         posY: store.page.posY
@@ -23,9 +22,11 @@ const mapDispatchToProps = (dispatch) => {
 @connect(mapStateToProps, mapDispatchToProps)
 export default class MenuPanes extends React.Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     componentWillUpdate(props){
-        // On update make our elementns dance
-        this.wave()
     }
 
     componentWillMount(){
@@ -35,14 +36,14 @@ export default class MenuPanes extends React.Component {
     renderPalettes(){
         const clone = (child, i) => React.cloneElement(child, {
             uid: i,
-            wait: 1000
+            waveState: "palette"
         });
         return this.props.children.map(clone);
     }
 
     render() {
         const { posY } = this.props
-        const posHeight = window.page.posHeight
+        const posHeight = window.page.posHeight-35
         const top = (posY) => {
             if (posY > posHeight/7 && posY < posHeight*1.5)
                 return posY
@@ -63,23 +64,6 @@ export default class MenuPanes extends React.Component {
               </tbody>
             </table>);
     }
-
-    // Makes menu wave
-    wave() {
-        if (this.canWave) {
-            this.canWave = false
-            let mms = 0
-            this.props.children.forEach((child)=>{
-                console.log(mms);
-                setTimeout(() => {
-                    // Emit event here
-
-                }, mms );
-                mms = mms + 100
-            })
-            setTimeout(()=>{this.canWave = true},1400)
-        }
-    } // END wave
 
     // Fades menu into place
     active(px){

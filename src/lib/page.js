@@ -56,7 +56,7 @@ class Page {
 		posWidth = this.posWidth,
 		posHeight = this.posHeight
 	}){
-		console.log("resizeDispatcher",arguments,this);
+		// console.log("resizeDispatcher",arguments,this);
 		if (posWidth != this.posWidth)
 			return store.dispatch(pageAct.widthChanged(posWidth))
 		if (posHeight != this.posHeight)
@@ -68,7 +68,7 @@ class Page {
 		posX = this.posX,
 		posY = this.posY
 	}){
-		console.log("scrollDispatcher",arguments,this);
+		// console.log("scrollDispatcher",arguments,this);
 		if (posX != this.posX)
 			store.dispatch(pageAct.xChanged(this.posX))
 

@@ -8,7 +8,7 @@ import React from 'react';
 */
 
 // First section
-import Cover from './Cover.jsx';
+import Cover from './HomeCover.jsx';
 
 // Third section
 import Contact from './Contact.jsx';

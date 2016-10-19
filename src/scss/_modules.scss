@@ -68,7 +68,7 @@
 	overflow: visible;
 	z-index: 2;
 
-	@include transition-duration(0.2s);
+	@include transition-duration(0.3s);
 	@include transition-timing-function(ease-in);
 	@include transform(translatez(0));
 
